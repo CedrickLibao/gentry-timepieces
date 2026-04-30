@@ -18,8 +18,8 @@ html { scroll-behavior: smooth; }
 body {
   background: var(--charcoal);
   color: var(--cream);
-  font-family: 'Josefin Sans', sans-serif;
-  font-weight: 200;
+  font-family: 'Open Sans', 'Josefin Sans', sans-serif;
+  font-weight: 400;
   letter-spacing: 0.08em;
   overflow-x: hidden;
   cursor: crosshair;

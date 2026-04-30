@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Our Watch Collection - Gentry Timepieces</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@100;200;300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@100;200;300;400&display=swap&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/luxury-style.css">
   <script src="../js/watch-image-generator.js" defer></script>
   <script src="../js/watches-api.js" defer></script>
@@ -12,14 +12,20 @@
   <script src="../js/component-loader.js" defer></script>
   <style>
     .search-section {
-      background: #000;
-      padding: 40px 20px;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+      padding: 140px 20px 40px;
+      background: transparent;
+      position: relative;
+      z-index: 1;
     }
 
     .search-container {
       max-width: 1200px;
       margin: 0 auto;
+      padding: 40px;
+      background: rgba(10, 8, 6, 0.92);
+      border: 1px solid rgba(184, 149, 90, 0.24);
+      border-radius: 28px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
     }
 
     .search-title {

@@ -57,11 +57,12 @@ function fixNavigationLinks() {
   
   // Map of link text to correct paths relative to root
   const pathMap = {
-    'Home': `${basePath}home/index.html`,
-    'Watches': `${basePath}watches/index.html`,
-    'Book Visit': `${basePath}book-visit/index.html`,
-    'Login': `${basePath}login/index.html`,
-    'Log In': `${basePath}login/index.html`
+    'Home': '/home/index.html',
+    'Watches': '/watches/index.html',
+    'Book Visit': '/book-visit/index.html',
+    'Login': '/login/index.html',
+    'Log In': '/login/index.html',
+    'Gentry Timepieces': '/home/index.html'
   };
   
   navLinks.forEach(link => {
