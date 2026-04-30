@@ -45,16 +45,18 @@ function safeSetHTML(container, htmlString) {
  */
 function fixNavigationLinks() {
   const navLinks = document.querySelectorAll('#main-nav a');
-  const path = window.location.pathname;
+  const currentPath = window.location.pathname;
   
-  // Determine the correct base path
-  let basePath = './';
-  if (path.includes('/login/') || path.includes('/watches/') || path.includes('/home/') || path.includes('/book-visit/')) {
-    basePath = '../';
-  }
+  // Determine base path for links - if in a subdirectory, go up one level
+  const isInSubfolder = currentPath.includes('/home/') || 
+                       currentPath.includes('/login/') || 
+                       currentPath.includes('/watches/') || 
+                       currentPath.includes('/book-visit/');
   
-  // Map of link text to correct paths
-  const linkPaths = {
+  const basePath = isInSubfolder ? '../' : './';
+  
+  // Map of link text to correct paths relative to root
+  const pathMap = {
     'Home': `${basePath}home/index.html`,
     'Watches': `${basePath}watches/index.html`,
     'Book Visit': `${basePath}book-visit/index.html`,
@@ -62,9 +64,13 @@ function fixNavigationLinks() {
   };
   
   navLinks.forEach(link => {
-    const text = link.textContent.trim();
-    if (linkPaths[text]) {
-      link.href = linkPaths[text];
+    const linkText = link.textContent.trim();
+    if (pathMap[linkText]) {
+      link.href = pathMap[linkText];
+      // Add click handler for debugging
+      link.addEventListener('click', (e) => {
+        console.log(`Navigating to ${link.href}`);
+      });
     }
   });
 }
@@ -74,25 +80,27 @@ function fixNavigationLinks() {
  */
 function fixFooterLinks() {
   const footerLinks = document.querySelectorAll('.footer-links a');
-  const path = window.location.pathname;
+  const currentPath = window.location.pathname;
   
-  // Determine the correct base path
-  let basePath = './';
-  if (path.includes('/login/') || path.includes('/watches/') || path.includes('/home/') || path.includes('/book-visit/')) {
-    basePath = '../';
-  }
+  // Determine base path for links
+  const isInSubfolder = currentPath.includes('/home/') || 
+                       currentPath.includes('/login/') || 
+                       currentPath.includes('/watches/') || 
+                       currentPath.includes('/book-visit/');
+  
+  const basePath = isInSubfolder ? '../' : './';
   
   // Map of link text to correct paths
-  const linkPaths = {
+  const pathMap = {
     'Home': `${basePath}home/index.html`,
     'Watches': `${basePath}watches/index.html`,
     'Login': `${basePath}login/index.html`
   };
   
   footerLinks.forEach(link => {
-    const text = link.textContent.trim();
-    if (linkPaths[text]) {
-      link.href = linkPaths[text];
+    const linkText = link.textContent.trim();
+    if (pathMap[linkText]) {
+      link.href = pathMap[linkText];
     }
   });
 }

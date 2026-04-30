@@ -3,33 +3,651 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Watches</title>
+  <title>Our Watch Collection - Gentry Timepieces</title>
   <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/watch-image-generator.js" defer></script>
+  <script src="../js/watches-api.js" defer></script>
+  <script src="../js/api-config.js" defer></script>
   <script src="../js/component-loader.js" defer></script>
+  <style>
+    .search-section {
+      background: #000;
+      padding: 40px 20px;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+    }
+
+    .search-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .search-title {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .search-title h2 {
+      color: #D4AF37;
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 10px;
+    }
+
+    .search-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr auto;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .search-form input,
+    .search-form select {
+      padding: 12px;
+      background: #111;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      color: #fff;
+      border-radius: 5px;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      min-height: 44px;
+    }
+
+    .search-form input:focus,
+    .search-form select:focus {
+      outline: none;
+      border-color: #D4AF37;
+      box-shadow: 0 0 5px rgba(212, 175, 55, 0.3);
+    }
+
+    .search-form input::placeholder {
+      color: #666;
+    }
+
+    .search-btn {
+      padding: 12px 30px;
+      background: #D4AF37;
+      color: #000;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      min-height: 44px;
+      transition: 0.3s;
+      align-self: center;
+    }
+
+    .search-btn:hover {
+      opacity: 0.9;
+    }
+
+    .search-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .filter-group label {
+      color: #D4AF37;
+      font-weight: 500;
+      margin-bottom: 5px;
+      font-size: 12px;
+    }
+
+    .products {
+      padding: 40px 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      background: #000;
+    }
+
+    .products h1 {
+      grid-column: 1 / -1;
+      text-align: center;
+      color: #D4AF37;
+      margin-bottom: 20px;
+    }
+
+    .loading {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 40px;
+      color: #aaa;
+    }
+
+    .loading-spinner {
+      display: inline-block;
+      border: 3px solid rgba(212, 175, 55, 0.3);
+      border-top: 3px solid #D4AF37;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .error-message {
+      grid-column: 1 / -1;
+      background: #5d1f1f;
+      border: 1px solid #f44336;
+      color: #f44336;
+      padding: 20px;
+      border-radius: 5px;
+      text-align: center;
+    }
+
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 40px;
+      color: #aaa;
+      font-size: 18px;
+    }
+
+    .watch-card {
+      background: #111;
+      padding: 20px;
+      border-radius: 10px;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      transition: all 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .watch-card:hover {
+      transform: translateY(-10px);
+      border-color: #D4AF37;
+      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+    }
+
+    .watch-image {
+      width: 100%;
+      height: 250px;
+      background: linear-gradient(135deg, #333, #222);
+      border-radius: 8px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .watch-brand {
+      color: #D4AF37;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+
+    .watch-model {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+
+    .watch-specs {
+      font-size: 13px;
+      color: #aaa;
+      margin: 8px 0;
+      line-height: 1.6;
+    }
+
+    .watch-specs strong {
+      color: #D4AF37;
+    }
+
+    .watch-card button {
+      margin-top: auto;
+      padding: 12px;
+      background: #D4AF37;
+      color: #000;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      min-height: 44px;
+      transition: 0.3s;
+    }
+
+    .watch-card button:hover {
+      opacity: 0.9;
+    }
+
+    @media (max-width: 768px) {
+      .search-form {
+        grid-template-columns: 1fr;
+      }
+
+      .search-btn {
+        width: 100%;
+      }
+
+      .products {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 20px;
+      }
+
+      .filters {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .api-notice {
+      background: #1a3a3a;
+      border: 1px solid #4caf50;
+      color: #4caf50;
+      padding: 15px;
+      border-radius: 5px;
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 13px;
+    }
+
+    .api-notice strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+  </style>
 </head>
 <body>
   <div id="header-placeholder"></div>
 
-<section class="products">
-  <h1>Our Collection</h1>
-  <div class="grid">
+  <!-- Search Section -->
+  <section class="search-section">
+    <div class="search-container">
+      <div class="search-title">
+        <h2>Find Your Perfect Watch</h2>
+        <p>Search our collection of luxury timepieces from thousands of listings</p>
+      </div>
 
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1508057198894-247b23fe5ade">
-      <h3>Patek Philippe</h3>
-      <p>$25,000</p>
-      <button>Book Viewing</button>
+      <div class="api-notice" id="apiNotice" style="display: none;">
+        <strong>⚠️ API Token Not Configured</strong>
+        Please set your API token in <code>js/api-config.js</code> to enable search functionality.
+      </div>
+
+      <form id="watchSearchForm" class="search-form">
+        <input type="text" id="searchInput" placeholder="Search by brand, model, or reference..." required>
+        
+        <div class="filter-group">
+          <label for="materialFilter">Material</label>
+          <select id="materialFilter">
+            <option value="">All Materials</option>
+            <option value="Steel">Steel</option>
+            <option value="Gold">Gold</option>
+            <option value="Platinum">Platinum</option>
+            <option value="Titanium">Titanium</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="diameterFilter">Case Diameter</label>
+          <select id="diameterFilter">
+            <option value="">All Sizes</option>
+            <option value="36 mm">36 mm</option>
+            <option value="38 mm">38 mm</option>
+            <option value="40 mm">40 mm</option>
+            <option value="42 mm">42 mm</option>
+            <option value="44 mm">44 mm</option>
+          </select>
+        </div>
+
+        <button type="submit" class="search-btn" id="searchBtn">Search</button>
+      </form>
     </div>
+  </section>
 
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1524594154908-edd60ff09a5f">
-      <h3>Audemars Piguet</h3>
-      <p>$30,000</p>
-      <button>Book Viewing</button>
+  <!-- Products Section -->
+  <section class="products" id="productsSection">
+    <h1>Watch Collection</h1>
+    <div id="watchesContainer" style="grid-column: 1 / -1; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
+      <!-- Watches will be loaded here -->
     </div>
+  </section>
 
+  <!-- Book Viewing Modal (same as home page) -->
+  <div id="bookViewingModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h2>Book a Viewing</h2>
+      <div class="modal-info">
+        Watch: <strong id="selected-watch"></strong>
+      </div>
+      <form class="modal-form" id="booking-form">
+        <input type="text" id="visitor-name" placeholder="Your Name" required>
+        <input type="email" id="visitor-email" placeholder="Your Email" required>
+        <input type="tel" id="visitor-phone" placeholder="Your Phone" required>
+        <textarea id="visitor-message" placeholder="Any questions or special requests?"></textarea>
+        <div class="modal-btn-container">
+          <button type="submit" class="modal-btn">Request Viewing</button>
+          <button type="button" class="modal-btn modal-btn-cancel" onclick="closeBookingModal()">Cancel</button>
+        </div>
+      </form>
+    </div>
   </div>
-</section>
+
   <div id="footer-placeholder"></div>
+
+  <script>
+    /**
+     * Watch Search and Display Functionality
+     */
+    let watchSearchAPI = null;
+
+    // Initialize when page loads
+    document.addEventListener('DOMContentLoaded', async () => {
+      console.log('Page loaded, initializing API...');
+      
+      // Wait for all scripts to load
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Try to initialize watchAPI if not already done
+      if (typeof initializeWatchAPI !== 'undefined') {
+        initializeWatchAPI();
+      }
+      
+      console.log('WatchAPI available:', typeof watchAPI !== 'undefined');
+      console.log('API_CONFIG available:', typeof API_CONFIG !== 'undefined');
+      
+      // Check if API is configured
+      if (typeof watchAPI !== 'undefined' && watchAPI && API_CONFIG.WATCH_API_TOKEN !== 'YOUR_API_TOKEN') {
+        watchSearchAPI = watchAPI;
+        console.log('✓ Watch API initialized successfully');
+        showApiConfigured();
+      } else if (typeof WatchAPI !== 'undefined' && typeof API_CONFIG !== 'undefined' && API_CONFIG.WATCH_API_TOKEN !== 'YOUR_API_TOKEN') {
+        console.log('Creating WatchAPI instance...');
+        watchSearchAPI = new WatchAPI(API_CONFIG.WATCH_API_TOKEN);
+        console.log('✓ WatchAPI created');
+        showApiConfigured();
+      } else {
+        console.error('API Token not configured');
+        showApiNotConfigured();
+      }
+
+      // Setup search form
+      setupSearchForm();
+    });
+
+    function showApiConfigured() {
+      const notice = document.getElementById('apiNotice');
+      if (notice) notice.style.display = 'none';
+    }
+
+    function showApiNotConfigured() {
+      const notice = document.getElementById('apiNotice');
+      if (notice) notice.style.display = 'block';
+      document.getElementById('searchBtn').disabled = true;
+    }
+
+    function setupSearchForm() {
+      const form = document.getElementById('watchSearchForm');
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        if (!watchSearchAPI) {
+          showError('API is not configured. Please set your token in js/api-config.js');
+          return;
+        }
+
+        const searchQuery = document.getElementById('searchInput').value;
+        const material = document.getElementById('materialFilter').value;
+        const diameter = document.getElementById('diameterFilter').value;
+
+        if (!searchQuery.trim()) {
+          showError('Please enter a search query');
+          return;
+        }
+
+        await performSearch(searchQuery, { case_material: material, case_diameter: diameter });
+      });
+    }
+
+    async function performSearch(query, filters) {
+      const container = document.getElementById('watchesContainer');
+      showLoading();
+
+      try {
+        const results = await watchSearchAPI.searchWatches(query, filters);
+
+        if (!results || results.length === 0) {
+          showNoResults();
+          return;
+        }
+
+        displayWatches(results);
+      } catch (error) {
+        showError(`Search failed: ${error.message}`);
+      }
+    }
+
+    function displayWatches(watches) {
+      const container = document.getElementById('watchesContainer');
+      container.innerHTML = '';
+
+      watches.forEach(watch => {
+        const card = createWatchCard(watch);
+        container.appendChild(card);
+      });
+
+      // Setup book viewing buttons
+      setupBookViewingButtons();
+    }
+
+    function createWatchCard(watch) {
+      const div = document.createElement('div');
+      div.className = 'watch-card';
+      
+      const yearRange = watch.year_of_production || 'N/A';
+      const caseSize = watch.case_diameter || 'N/A';
+      const material = watch.case_material || 'N/A';
+      const movement = watch.movement || 'N/A';
+
+      // Generate image using WatchImageGenerator
+      const imageDataUrl = typeof WatchImageGenerator !== 'undefined' 
+        ? WatchImageGenerator.getWatchImageDataURL(watch.brand, watch.model)
+        : 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iIzExMSIvPjwvc3ZnPg==';
+
+      div.innerHTML = `
+        <img src="${imageDataUrl}" alt="${watch.model}" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 15px;">
+        <div class="watch-brand">${watch.brand || 'Unknown'}</div>
+        <div class="watch-model">${watch.model || 'Unknown Model'}</div>
+        
+        <div class="watch-specs">
+          <div><strong>Reference:</strong> ${watch.reference_number || 'N/A'}</div>
+          <div><strong>Material:</strong> ${material}</div>
+          <div><strong>Size:</strong> ${caseSize}</div>
+          <div><strong>Movement:</strong> ${movement}</div>
+          <div><strong>Years:</strong> ${yearRange}</div>
+        </div>
+
+        ${watch.description ? `<div class="watch-specs" style="font-size: 12px; color: #999; margin: 10px 0;">${watch.description.substring(0, 100)}...</div>` : ''}
+
+        <button class="book-viewing-btn" data-watch="${watch.model}">Book Viewing</button>
+      `;
+
+      return div;
+    }
+
+    function setupBookViewingButtons() {
+      const modal = document.getElementById('bookViewingModal');
+      const closeBtn = document.querySelector('.close-modal');
+      const bookingForm = document.getElementById('booking-form');
+      const bookViewingBtns = document.querySelectorAll('.book-viewing-btn');
+
+      bookViewingBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const watchName = btn.getAttribute('data-watch');
+          document.getElementById('selected-watch').textContent = watchName;
+          modal.style.display = 'block';
+        });
+      });
+
+      closeBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+      });
+
+      window.addEventListener('click', (event) => {
+        if (event.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
+
+      bookingForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const watch = document.getElementById('selected-watch').textContent;
+        alert(`Viewing request submitted for ${watch}. We'll contact you shortly!`);
+        modal.style.display = 'none';
+        bookingForm.reset();
+      });
+    }
+
+    function showLoading() {
+      const container = document.getElementById('watchesContainer');
+      container.innerHTML = '<div class="loading"><div class="loading-spinner"></div><p>Searching for watches...</p></div>';
+    }
+
+    function showError(message) {
+      const container = document.getElementById('watchesContainer');
+      container.innerHTML = `<div class="error-message">${message}</div>`;
+    }
+
+    function showNoResults() {
+      const container = document.getElementById('watchesContainer');
+      container.innerHTML = '<div class="no-results">No watches found. Try a different search.</div>';
+    }
+
+    function closeBookingModal() {
+      document.getElementById('bookViewingModal').style.display = 'none';
+      document.getElementById('booking-form').reset();
+    }
+  </script>
+
+  <!-- Modal styles -->
+  <style>
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      animation: fadeIn 0.3s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal-content {
+      background: #111;
+      margin: 10% auto;
+      padding: 30px;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
+      animation: slideIn 0.3s ease-out;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .close-modal {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .close-modal:hover {
+      color: #D4AF37;
+    }
+
+    .modal h2 {
+      color: #D4AF37;
+      margin-bottom: 10px;
+    }
+
+    .modal-info {
+      margin-bottom: 20px;
+      font-size: 14px;
+      color: #aaa;
+    }
+
+    .modal-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .modal-form input, .modal-form textarea {
+      padding: 12px;
+      background: #000;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      border-radius: 5px;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+    }
+
+    .modal-form input:focus, .modal-form textarea:focus {
+      outline: none;
+      border-color: #D4AF37;
+      box-shadow: 0 0 5px rgba(212, 175, 55, 0.3);
+    }
+
+    .modal-btn {
+      padding: 12px;
+      background: #D4AF37;
+      color: #000;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      min-height: 44px;
+      transition: 0.3s;
+    }
+
+    .modal-btn:hover {
+      opacity: 0.9;
+    }
+
+    .modal-btn-cancel {
+      background: #333;
+      color: #fff;
+    }
+
+    .modal-btn-container {
+      display: flex;
+      gap: 10px;
+    }
+
+    .modal-btn-container button {
+      flex: 1;
+    }
+  </style>
 </body>
-</html> 
+</html>

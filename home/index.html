@@ -8,6 +8,9 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/watch-image-generator.js" defer></script>
+  <script src="../js/watches-api.js" defer></script>
+  <script src="../js/api-config.js" defer></script>
   <script src="../js/component-loader.js" defer></script>
   <style>
     /* Modal Styles */
@@ -145,25 +148,8 @@
   </section>
 
   <section class="products" id="products-section">
-    <div class="card">
-      <iframe src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1243532454225121%2F&show_text=false&width=267&t=0" width="267" height="476" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
-      <h3>Omega Speedmaster</h3>
-      <p>$12,000</p>
-      <button class="book-viewing-btn" data-watch="Rolex Submariner">Book Viewing</button>
-    </div>
-
-    <div class="card">
-      <img src="https://scontent.fmnl2-2.fna.fbcdn.net/v/t39.30808-6/653457791_122304997664011985_8432980305154334186_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=13d280&_nc_eui2=AeF1N4Vinhc1ap8LoyAw2Cx4ZPiH869bL1Vk-Ifzr1svVZyysGRVT0zTMb0Vj7rMaN3qpUVhrsaqH6xybxgW5OcI&_nc_ohc=dt5i20AjyskQ7kNvwH3jWQC&_nc_oc=AdoK9wcmVYFg8lruj25sw4LSvs2q_vzwmvQ1146stKyvIzhUkVdClGpupipi4aXBa94&_nc_zt=23&_nc_ht=scontent.fmnl2-2.fna&_nc_gid=kcFA-QR_eUo8RdI-IdqChg&_nc_ss=7a32e&oh=00_AfwbeA6I2_AiHj3lxn2Asxw-9BRKBNHMUbmeuy0nrq0zbg&oe=69C5D427" alt="watch">
-      <h3>Omega Seamaster</h3>
-      <p>$8,500</p>
-      <button class="book-viewing-btn" data-watch="Omega Seamaster">Book Viewing</button>
-    </div>
-
-    <div class="card">
-      <img src="https://scontent.fmnl2-2.fna.fbcdn.net/v/t39.30808-6/654164346_122304839840011985_2831576357128679177_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=13d280&_nc_eui2=AeHQ6bzyF5WrMjk_U4r1tKE-3BZSDfrbeH3cFlIN-tt4fYWE1JUTnyBIHJyPHwHw6RbpF2iTKDRuLrUit-sNOZWO&_nc_ohc=Iez1hlgJVGEQ7kNvwHywjw5&_nc_oc=AdpEqmW_MM6wHXlsgQNdxn5LYtyemqFNqpop45Qfu1YlUvrzLY2njEf99iRDOK0_vjc&_nc_zt=23&_nc_ht=scontent.fmnl2-2.fna&_nc_gid=omcfcNoyEVXXM7Ddx9TenA&_nc_ss=7a32e&oh=00_AfyJCbkVButj6FjXRtcE8XEb9zaxQyJwEEJpEu6xsGz4VQ&oe=69C5CE91" alt="watch">
-      <h3>Patek Philippe</h3>
-      <p>$25,000</p>
-      <button class="book-viewing-btn" data-watch="Patek Philippe">Book Viewing</button>
+    <div id="watches-container" style="grid-column: 1 / -1; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+      <!-- Watches loaded from API -->
     </div>
   </section>
 
@@ -251,6 +237,63 @@
     document.getElementById('explore-btn').addEventListener('click', () => {
       const productsSection = document.getElementById('products-section');
       productsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    /**
+     * Load Featured Watches from API
+     */
+    async function loadFeaturedWatches() {
+      // Wait for API to initialize
+      await new Promise(resolve => setTimeout(resolve, 1500));
+
+      if (typeof watchAPI === 'undefined' || !watchAPI) {
+        console.error('Watch API not available');
+        return;
+      }
+
+      const featuredWatches = ['rolex submariner', 'omega seamaster', 'patek philippe'];
+      const container = document.getElementById('watches-container');
+      
+      for (const watchName of featuredWatches) {
+        try {
+          const results = await watchAPI.searchWatches(watchName);
+          if (results && results.length > 0) {
+            const watch = results[0]; // Get first result
+            const card = createWatchCard(watch);
+            container.appendChild(card);
+          }
+        } catch (error) {
+          console.error(`Error loading ${watchName}:`, error);
+        }
+      }
+    }
+
+    /**
+     * Create watch card element
+     */
+    function createWatchCard(watch) {
+      const div = document.createElement('div');
+      div.className = 'card';
+      
+      // Generate image using WatchImageGenerator
+      const imageDataUrl = typeof WatchImageGenerator !== 'undefined' 
+        ? WatchImageGenerator.getWatchImageDataURL(watch.brand, watch.model)
+        : 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iIzExMSIvPjwvc3ZnPg==';
+
+      div.innerHTML = `
+        <img src="${imageDataUrl}" alt="${watch.model}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px;">
+        <h3>${watch.model || watch.brand}</h3>
+        <p style="color: #D4AF37; font-size: 12px; margin: 5px 0;">${watch.brand}</p>
+        <p style="color: #aaa; font-size: 12px; margin: 5px 0;">Ref: ${watch.reference_number || 'N/A'}</p>
+        <button class="book-viewing-btn" data-watch="${watch.model}">Book Viewing</button>
+      `;
+
+      return div;
+    }
+
+    // Load featured watches when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      loadFeaturedWatches();
     });
   </script>
 </body>
