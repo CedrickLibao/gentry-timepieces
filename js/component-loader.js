@@ -60,7 +60,8 @@ function fixNavigationLinks() {
     'Home': `${basePath}home/index.html`,
     'Watches': `${basePath}watches/index.html`,
     'Book Visit': `${basePath}book-visit/index.html`,
-    'Login': `${basePath}login/index.html`
+    'Login': `${basePath}login/index.html`,
+    'Log In': `${basePath}login/index.html`
   };
   
   navLinks.forEach(link => {

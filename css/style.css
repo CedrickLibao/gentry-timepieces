@@ -7,142 +7,320 @@
 
     body {
       background: #000;
-      color: #fff;
+      color: #e8e8e8;
+      line-height: 1.6;
     }
 
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px 60px;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 30px 80px;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      background: #000;
     }
 
     .logo {
       font-family: 'Playfair Display', serif;
-      font-size: 24px;
+      font-size: 32px;
+      letter-spacing: 4px;
       color: #D4AF37;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    nav {
+      display: flex;
+      gap: 50px;
     }
 
     nav a {
-      margin-left: 25px;
       text-decoration: none;
-      color: #fff;
-      font-size: 14px;
-      transition: 0.3s;
+      color: #b0b0b0;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: 0.3s ease;
+      position: relative;
     }
 
     nav a:hover {
       color: #D4AF37;
     }
 
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: #D4AF37;
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
     .hero {
-      height: 90vh;
+      height: 80vh;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      background: url('https://images.unsplash.com/photo-1524594154908-edd60ff09a5f') center/cover no-repeat;
+      background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
+      padding: 80px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="none" stroke="%23D4AF37" stroke-width="0.1" opacity="0.03" x="0" y="0" width="1200" height="600"/></svg>');
+      pointer-events: none;
+      opacity: 0.1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
     }
 
     .hero h1 {
       font-family: 'Playfair Display', serif;
-      font-size: 60px;
+      font-size: 80px;
+      letter-spacing: 8px;
       margin-bottom: 20px;
+      color: #D4AF37;
+      font-weight: 700;
+      text-transform: uppercase;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      font-size: 16px;
+      color: #b0b0b0;
+      letter-spacing: 2px;
+      margin-bottom: 40px;
+      font-style: italic;
+      text-transform: uppercase;
     }
 
     .hero button {
-      padding: 12px 30px;
-      border: none;
-      background: #D4AF37;
-      color: #000;
+      padding: 15px 40px;
+      border: 2px solid #D4AF37;
+      background: transparent;
+      color: #D4AF37;
       cursor: pointer;
       font-weight: bold;
       transition: 0.3s;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-size: 12px;
     }
 
     .hero button:hover {
-      opacity: 0.8;
+      background: #D4AF37;
+      color: #000;
     }
 
     .products {
-      padding: 60px;
+      padding: 100px 80px;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 50px;
+    }
+
+    .products h2 {
+      grid-column: 1 / -1;
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 48px;
+      letter-spacing: 4px;
+      color: #D4AF37;
+      margin-bottom: 20px;
+      text-transform: uppercase;
     }
 
     .card {
-      background: #111;
-      padding: 20px;
-      border-radius: 10px;
-      transition: 0.3s;
+      background: transparent;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      padding: 30px;
+      transition: 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(212, 175, 55, 0.05);
+      transition: left 0.3s ease;
+      z-index: 0;
+    }
+
+    .card:hover::before {
+      left: 0;
     }
 
     .card:hover {
-      transform: translateY(-10px);
+      border-color: rgba(212, 175, 55, 0.5);
+      transform: translateY(-5px);
     }
 
     .card img {
       width: 100%;
-      border-radius: 10px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      opacity: 0.9;
+      transition: 0.3s ease;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card:hover img {
+      opacity: 1;
     }
 
     .card h3 {
       margin: 15px 0 10px;
       font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      letter-spacing: 2px;
+      color: #D4AF37;
+      position: relative;
+      z-index: 1;
     }
 
     .card p {
-      color: #aaa;
+      color: #909090;
       font-size: 14px;
-    }
-
-    .card button {
-      margin-top: 10px;
-      width: 100%;
-      padding: 10px;
-      border: none;
-      background: #D4AF37;
-      color: #000;
+      position: relative;
+      z-index: 1;
+      line-height: 1.8;
       cursor: pointer;
     }
 
     footer {
       text-align: center;
-      padding: 20px;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      margin-top: 40px;
+      padding: 50px 40px;
+      border-top: 1px solid rgba(212, 175, 55, 0.2);
+      margin-top: 80px;
+      color: #606060;
+      font-size: 11px;
+      letter-spacing: 2px;
+      background: #000;
+    }
+
+    footer p {
+      margin: 8px 0;
+    }
+
+    footer a {
+      color: #D4AF37;
+      text-decoration: none;
+      transition: 0.3s ease;
+    }
+
+    footer a:hover {
+      opacity: 0.8;
     }
 
 /* Responsive Design & Hamburger Menu */
 @media (max-width: 1440px) {
-  .hero h1 { font-size: 48px; }
-  header { padding: 20px 30px; }
-  .products { padding: 40px; }
+  .hero h1 { font-size: 60px; }
+  header { padding: 20px 60px; }
+  .products { padding: 60px 40px; }
 }
 
 @media (max-width: 1024px) {
-  .hero h1 { font-size: 36px; }
-  .products { padding: 20px; }
+  .hero h1 { font-size: 48px; }
+  header { padding: 20px 40px; }
+  .products { padding: 40px 20px; }
+  nav { gap: 30px; }
 }
 
 @media (max-width: 768px) {
-  header { flex-direction: column; align-items: flex-start; padding: 16px 10px; }
-  .logo { font-size: 20px; }
-  nav { width: 100%; }
-  nav a { display: block; margin: 10px 0 0 0; font-size: 16px; }
-  .hero { min-height: 60vh; height: auto; padding: 40px 10px; }
-  .hero h1 { font-size: 28px; }
-  .products { grid-template-columns: 1fr; gap: 20px; padding: 10px; }
-  .card { padding: 12px; }
-  .footer-links { flex-direction: column !important; align-items: flex-start; }
-  .footer-links a { margin: 6px 0; }
+  header {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    gap: 20px;
+  }
+
+  .logo {
+    font-size: 24px;
+  }
+
+  nav {
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    width: 100%;
+  }
+
+  nav a {
+    font-size: 11px;
+    display: inline-block;
+  }
+
+  .hero {
+    min-height: 70vh;
+    height: auto;
+    padding: 40px 20px;
+  }
+
+  .hero h1 {
+    font-size: 36px;
+    letter-spacing: 2px;
+  }
+
+  .hero p {
+    font-size: 13px;
+  }
+
+  .products {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 40px 20px;
+  }
+
+  .products h2 {
+    font-size: 32px;
+  }
+
+  .card {
+    padding: 20px;
+  }
+
+  footer {
+    padding: 30px 20px;
+    font-size: 10px;
+  }
 }
 
 @media (max-width: 480px) {
-  .hero h1 { font-size: 20px; }
-  .logo { font-size: 16px; }
+  .hero h1 { font-size: 28px; }
+  .logo { font-size: 18px; }
+  header { padding: 15px; }
+  .products { padding: 20px 15px; }
+  .products h2 { font-size: 24px; }
+  nav { gap: 10px; }
+  nav a { font-size: 10px; }
+  footer { font-size: 9px; }
+}
   .hero button, .card button { font-size: 14px; padding: 14px 0; }
 }
 

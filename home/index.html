@@ -3,299 +3,674 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gentry Timepieces</title>
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/style.css">
+  <title>GENTRY — Timepieces of Distinction</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@100;200;300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/luxury-style.css">
   <script src="../js/watch-image-generator.js" defer></script>
   <script src="../js/watches-api.js" defer></script>
   <script src="../js/api-config.js" defer></script>
   <script src="../js/component-loader.js" defer></script>
-  <style>
-    /* Modal Styles */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      animation: fadeIn 0.3s ease-in;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .modal-content {
-      background: #111;
-      margin: 10% auto;
-      padding: 30px;
-      border: 1px solid rgba(212, 175, 55, 0.3);
-      border-radius: 10px;
-      width: 90%;
-      max-width: 500px;
-      animation: slideIn 0.3s ease-out;
-    }
-
-    @keyframes slideIn {
-      from { transform: translateY(-50px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    .close-modal {
-      color: #aaa;
-      float: right;
-      font-size: 28px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .close-modal:hover {
-      color: #D4AF37;
-    }
-
-    .modal h2 {
-      color: #D4AF37;
-      margin-bottom: 10px;
-    }
-
-    .modal-info {
-      margin-bottom: 20px;
-      font-size: 14px;
-      color: #aaa;
-    }
-
-    .modal-form {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-
-    .modal-form input, .modal-form textarea {
-      padding: 12px;
-      background: #000;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #fff;
-      border-radius: 5px;
-      font-family: 'Inter', sans-serif;
-      font-size: 1rem;
-    }
-
-    .modal-form input:focus, .modal-form textarea:focus {
-      outline: none;
-      border-color: #D4AF37;
-      box-shadow: 0 0 5px rgba(212, 175, 55, 0.3);
-    }
-
-    .modal-btn {
-      padding: 12px;
-      background: #D4AF37;
-      color: #000;
-      border: none;
-      border-radius: 5px;
-      font-weight: bold;
-      cursor: pointer;
-      min-height: 44px;
-      transition: 0.3s;
-    }
-
-    .modal-btn:hover {
-      opacity: 0.9;
-    }
-
-    .modal-btn-cancel {
-      background: #333;
-      color: #fff;
-    }
-
-    .modal-btn-container {
-      display: flex;
-      gap: 10px;
-    }
-
-    .modal-btn-container button {
-      flex: 1;
-    }
-
-    @media (max-width: 480px) {
-      .modal-content {
-        width: 95%;
-        margin: 30% auto;
-        padding: 20px;
-      }
-
-      .modal-btn-container {
-        flex-direction: column;
-      }
-    }
-  </style>
 </head>
-
 <body>
-  <div id="header-placeholder"></div>
- 
-  <section class="hero">
-    <div>
-      <h1>Luxury in Every Second</h1>
-      <button id="explore-btn">Explore Collection</button>
-    </div>
-  </section>
 
-  <section class="products" id="products-section">
-    <div id="watches-container" style="grid-column: 1 / -1; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
-      <!-- Watches loaded from API -->
-    </div>
-  </section>
+<div id="header-placeholder"></div>
 
-  <!-- Book Viewing Modal -->
-  <div id="bookViewingModal" class="modal">
-    <div class="modal-content">
-      <span class="close-modal">&times;</span>
-      <h2>Book a Viewing</h2>
-      <div class="modal-info">
-        Watch: <strong id="selected-watch"></strong>
-      </div>
-      <form class="modal-form" id="booking-form">
-        <input type="text" id="visitor-name" placeholder="Your Name" required>
-        <input type="email" id="visitor-email" placeholder="Your Email" required>
-        <input type="tel" id="visitor-phone" placeholder="Your Phone" required>
-        <textarea id="visitor-message" placeholder="Any questions or special requests?"></textarea>
-        <div class="modal-btn-container">
-          <button type="submit" class="modal-btn">Request Viewing</button>
-          <button type="button" class="modal-btn modal-btn-cancel" onclick="closeBookingModal()">Cancel</button>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">New Collection 2026</div>
+    <h1>
+      Time,
+      <em>Perfected.</em>
+    </h1>
+    <p class="hero-sub">
+      Each Gentry timepiece is a testament to the relentless pursuit of horological excellence — crafted for those who understand that true luxury is measured not in moments, but in centuries.
+    </p>
+    <a href="#collections" class="hero-cta">
+      <span>Explore the Collection</span>
+    </a>
+  </div>
+
+  <!-- Decorative watch SVG in hero -->
+  <div class="hero-watch">
+    <svg class="watch-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+      <!-- Case -->
+      <circle cx="200" cy="200" r="155" fill="none" stroke="#B8955A" stroke-width="8" opacity="0.6"/>
+      <circle cx="200" cy="200" r="145" fill="#0E0C0B" stroke="#8B6E3A" stroke-width="1"/>
+      <circle cx="200" cy="200" r="130" fill="none" stroke="rgba(184,149,90,0.2)" stroke-width="1"/>
+      <!-- Crown -->
+      <rect x="348" y="188" width="22" height="24" rx="4" fill="#1A1614" stroke="#B8955A" stroke-width="1"/>
+      <!-- Lugs -->
+      <path d="M155 55 L170 80 L190 75 L180 50 Z" fill="#1A1614" stroke="#8B6E3A" stroke-width="1"/>
+      <path d="M245 55 L230 80 L210 75 L220 50 Z" fill="#1A1614" stroke="#8B6E3A" stroke-width="1"/>
+      <path d="M155 345 L170 320 L190 325 L180 350 Z" fill="#1A1614" stroke="#8B6E3A" stroke-width="1"/>
+      <path d="M245 345 L230 320 L210 325 L220 350 Z" fill="#1A1614" stroke="#8B6E3A" stroke-width="1"/>
+      <!-- Hour markers -->
+      <g stroke="#B8955A" stroke-width="2">
+        <line x1="200" y1="75" x2="200" y2="92"/>
+        <line x1="200" y1="308" x2="200" y2="325"/>
+        <line x1="75" y1="200" x2="92" y2="200"/>
+        <line x1="308" y1="200" x2="325" y2="200"/>
+      </g>
+      <g stroke="rgba(184,149,90,0.5)" stroke-width="1">
+        <line x1="275" y1="87" x2="268" y2="99"/>
+        <line x1="313" y1="125" x2="301" y2="132"/>
+        <line x1="313" y1="275" x2="301" y2="268"/>
+        <line x1="275" y1="313" x2="268" y2="301"/>
+        <line x1="125" y1="313" x2="132" y2="301"/>
+        <line x1="87" y1="275" x2="99" y2="268"/>
+        <line x1="87" y1="125" x2="99" y2="132"/>
+        <line x1="125" y1="87" x2="132" y2="99"/>
+      </g>
+      <!-- Sub-dial (seconds) -->
+      <circle cx="200" cy="270" r="28" fill="none" stroke="rgba(184,149,90,0.25)" stroke-width="1"/>
+      <circle cx="200" cy="270" r="2" fill="#B8955A"/>
+      <!-- Hands -->
+      <line x1="200" y1="200" x2="200" y2="100" stroke="#F5F0E8" stroke-width="3" stroke-linecap="round" opacity="0.9"/>
+      <line x1="200" y1="200" x2="250" y2="200" stroke="#F5F0E8" stroke-width="2.5" stroke-linecap="round" opacity="0.9"/>
+      <line x1="200" y1="200" x2="185" y2="250" stroke="#B8955A" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/>
+      <!-- Center jewel -->
+      <circle cx="200" cy="200" r="5" fill="#B8955A"/>
+      <circle cx="200" cy="200" r="2.5" fill="#0E0C0B"/>
+      <!-- Brand text -->
+      <text x="200" y="180" text-anchor="middle" fill="rgba(184,149,90,0.7)" font-size="10" font-family="Josefin Sans, sans-serif" letter-spacing="4">GENTRY</text>
+      <text x="200" y="228" text-anchor="middle" fill="rgba(184,149,90,0.35)" font-size="6" font-family="Josefin Sans, sans-serif" letter-spacing="2">GENÈVE</text>
+    </svg>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Haute Horlogerie</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Swiss Manufacture</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Perpetual Calendar</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Tourbillon</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">300m Water Resistant</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Hand-Finished</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">In-House Movement</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Haute Horlogerie</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Swiss Manufacture</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Perpetual Calendar</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Tourbillon</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">300m Water Resistant</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Hand-Finished</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">In-House Movement</span><span class="marquee-sep">✦</span>
+  </div>
+</div>
+
+<!-- COLLECTION SECTION -->
+<section id="collections">
+  <div class="section-header fade-up">
+    <div class="section-eyebrow">2026 Catalog</div>
+    <h2 class="section-title">The Gentry <em>Collections</em></h2>
+    <div class="section-line"></div>
+  </div>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar fade-up">
+    <button class="filter-btn active" onclick="filterCards('all', this)">All</button>
+    <button class="filter-btn" onclick="filterCards('meridian', this)">Meridian</button>
+    <button class="filter-btn" onclick="filterCards('eclipse', this)">Eclipse</button>
+    <button class="filter-btn" onclick="filterCards('sovereign', this)">Sovereign</button>
+    <button class="filter-btn" onclick="filterCards('aqua', this)">Aqua Gentry</button>
+  </div>
+
+  <div class="catalog">
+    <div class="catalog-grid" id="catalogGrid">
+
+      <!-- FEATURED: Watch 1 -->
+      <div class="watch-card featured" data-collection="meridian" onclick="openModal(0)">
+        <div class="card-img" style="min-height:500px;">
+          <svg class="card-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="150" cy="150" r="120" fill="none" stroke="#B8955A" stroke-width="6" opacity="0.6"/>
+            <circle cx="150" cy="150" r="112" fill="#0A0806" stroke="#6B4E2A" stroke-width="1"/>
+            <circle cx="150" cy="150" r="98" fill="none" stroke="rgba(184,149,90,0.15)" stroke-width="1"/>
+            <rect x="264" y="140" width="18" height="20" rx="3" fill="#1A1614" stroke="#B8955A" stroke-width="1"/>
+            <g stroke="#B8955A" stroke-width="2.5">
+              <line x1="150" y1="38" x2="150" y2="58"/>
+              <line x1="150" y1="242" x2="150" y2="262"/>
+              <line x1="38" y1="150" x2="58" y2="150"/>
+              <line x1="242" y1="150" x2="262" y2="150"/>
+            </g>
+            <g stroke="rgba(184,149,90,0.4)" stroke-width="1.5">
+              <line x1="211" y1="55" x2="204" y2="67"/>
+              <line x1="245" y1="89" x2="233" y2="96"/>
+              <line x1="245" y1="211" x2="233" y2="204"/>
+              <line x1="211" y1="245" x2="204" y2="233"/>
+              <line x1="89" y1="245" x2="96" y2="233"/>
+              <line x1="55" y1="211" x2="67" y2="204"/>
+              <line x1="55" y1="89" x2="67" y2="96"/>
+              <line x1="89" y1="55" x2="96" y2="67"/>
+            </g>
+            <circle cx="150" cy="150" r="85" fill="rgba(15,25,50,0.8)" stroke="none"/>
+            <circle cx="150" cy="210" r="22" fill="none" stroke="rgba(184,149,90,0.3)" stroke-width="1"/>
+            <text x="150" y="138" text-anchor="middle" fill="rgba(184,149,90,0.8)" font-size="8" font-family="Josefin Sans, sans-serif" letter-spacing="3">GENTRY</text>
+            <text x="150" y="168" text-anchor="middle" fill="rgba(184,149,90,0.3)" font-size="5" font-family="Josefin Sans, sans-serif" letter-spacing="2">MERIDIAN</text>
+            <line x1="150" y1="150" x2="150" y2="68" stroke="#F5F0E8" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="150" y1="150" x2="200" y2="150" stroke="#F5F0E8" stroke-width="2" stroke-linecap="round"/>
+            <line x1="150" y1="150" x2="138" y2="195" stroke="#B8955A" stroke-width="1.2" stroke-linecap="round"/>
+            <circle cx="150" cy="150" r="4" fill="#B8955A"/>
+          </svg>
         </div>
-      </form>
+        <div class="card-info">
+          <div>
+            <div class="card-collection">Meridian</div>
+            <div class="card-name">Céleste Tourbillon</div>
+            <div class="card-ref">Ref. GEN-MT-001</div>
+          </div>
+          <div class="card-price">
+            <div class="price-label">From</div>
+            <div class="price-val">$48,500</div>
+          </div>
+        </div>
+        <div class="card-overlay">
+          <button class="overlay-btn" onclick="event.stopPropagation(); openModal(0)">View Details</button>
+          <button class="overlay-btn secondary">Add to Wishlist</button>
+        </div>
+      </div>
+
+      <!-- Watch 2 -->
+      <div class="watch-card" data-collection="eclipse" onclick="openModal(1)">
+        <div class="card-img">
+          <svg class="card-svg" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="120" cy="120" r="96" fill="none" stroke="#8B6E3A" stroke-width="5" opacity="0.7"/>
+            <circle cx="120" cy="120" r="90" fill="#0C0906" stroke="#5A4020" stroke-width="1"/>
+            <circle cx="120" cy="120" r="76" fill="#080605"/>
+            <rect x="208" y="112" width="14" height="16" rx="2.5" fill="#1A1614" stroke="#B8955A" stroke-width="1"/>
+            <g stroke="#B8955A" stroke-width="2">
+              <line x1="120" y1="32" x2="120" y2="46"/>
+              <line x1="120" y1="194" x2="120" y2="208"/>
+              <line x1="32" y1="120" x2="46" y2="120"/>
+              <line x1="194" y1="120" x2="208" y2="120"/>
+            </g>
+            <text x="120" y="110" text-anchor="middle" fill="rgba(184,149,90,0.7)" font-size="6.5" font-family="Josefin Sans, sans-serif" letter-spacing="2.5">GENTRY</text>
+            <text x="120" y="134" text-anchor="middle" fill="rgba(184,149,90,0.25)" font-size="4" font-family="Josefin Sans, sans-serif" letter-spacing="2">ECLIPSE</text>
+            <line x1="120" y1="120" x2="120" y2="55" stroke="#D4AF78" stroke-width="2" stroke-linecap="round"/>
+            <line x1="120" y1="120" x2="158" y2="120" stroke="#D4AF78" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="120" y1="120" x2="108" y2="160" stroke="rgba(184,149,90,0.8)" stroke-width="1" stroke-linecap="round"/>
+            <circle cx="120" cy="120" r="3.5" fill="#B8955A"/>
+            <circle cx="120" cy="120" r="1.5" fill="#080605"/>
+          </svg>
+        </div>
+        <div class="card-info">
+          <div>
+            <div class="card-collection">Eclipse</div>
+            <div class="card-name">Nocturne</div>
+            <div class="card-ref">Ref. GEN-EC-002</div>
+          </div>
+          <div class="card-price">
+            <div class="price-label">From</div>
+            <div class="price-val">$22,900</div>
+          </div>
+        </div>
+        <div class="card-overlay">
+          <button class="overlay-btn" onclick="event.stopPropagation(); openModal(1)">View Details</button>
+          <button class="overlay-btn secondary">Add to Wishlist</button>
+        </div>
+      </div>
+
+      <!-- Watch 3 -->
+      <div class="watch-card" data-collection="sovereign" onclick="openModal(2)">
+        <div class="card-img">
+          <svg class="card-svg" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
+            <rect x="25" y="25" width="190" height="190" rx="40" fill="none" stroke="#B8955A" stroke-width="4" opacity="0.6"/>
+            <rect x="32" y="32" width="176" height="176" rx="36" fill="#0E0C0B" stroke="#6B4E2A" stroke-width="1"/>
+            <rect x="48" y="48" width="144" height="144" rx="28" fill="#121008"/>
+            <rect x="208" y="112" width="14" height="16" rx="2.5" fill="#1A1614" stroke="#B8955A" stroke-width="1"/>
+            <g stroke="#B8955A" stroke-width="2">
+              <line x1="120" y1="58" x2="120" y2="70"/>
+              <line x1="120" y1="170" x2="120" y2="182"/>
+              <line x1="58" y1="120" x2="70" y2="120"/>
+              <line x1="170" y1="120" x2="182" y2="120"/>
+            </g>
+            <rect x="105" y="100" width="30" height="40" rx="3" fill="rgba(184,149,90,0.08)" stroke="rgba(184,149,90,0.3)" stroke-width="0.5"/>
+            <text x="120" y="108" text-anchor="middle" fill="rgba(184,149,90,0.6)" font-size="5.5" font-family="Josefin Sans, sans-serif" letter-spacing="2">GENTRY</text>
+            <line x1="120" y1="120" x2="120" y2="66" stroke="#F5F0E8" stroke-width="2" stroke-linecap="round"/>
+            <line x1="120" y1="120" x2="155" y2="120" stroke="#F5F0E8" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="120" y1="120" x2="112" y2="152" stroke="#B8955A" stroke-width="1" stroke-linecap="round"/>
+            <circle cx="120" cy="120" r="3" fill="#B8955A"/>
+          </svg>
+        </div>
+        <div class="card-info">
+          <div>
+            <div class="card-collection">Sovereign</div>
+            <div class="card-name">Grand Complication</div>
+            <div class="card-ref">Ref. GEN-SO-003</div>
+          </div>
+          <div class="card-price">
+            <div class="price-label">From</div>
+            <div class="price-val">$68,000</div>
+          </div>
+        </div>
+        <div class="card-overlay">
+          <button class="overlay-btn" onclick="event.stopPropagation(); openModal(2)">View Details</button>
+          <button class="overlay-btn secondary">Add to Wishlist</button>
+        </div>
+      </div>
+
+      <!-- Watch 4 -->
+      <div class="watch-card" data-collection="aqua" onclick="openModal(3)">
+        <div class="card-img">
+          <svg class="card-svg" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="120" cy="120" r="96" fill="none" stroke="#2A4A6B" stroke-width="6" opacity="0.8"/>
+            <circle cx="120" cy="120" r="90" fill="#08111A" stroke="#1A3A5A" stroke-width="1.5"/>
+            <circle cx="120" cy="120" r="82" fill="none" stroke="#0A1E30" stroke-width="14"/>
+            <g stroke="#B8955A" stroke-width="2">
+              <line x1="120" y1="28" x2="120" y2="42"/>
+            </g>
+            <circle cx="120" cy="38" r="4" fill="#B8955A"/>
+            <g stroke="rgba(100,150,200,0.5)" stroke-width="1">
+              <line x1="120" y1="195" x2="120" y2="208"/>
+              <line x1="30" y1="120" x2="44" y2="120"/>
+              <line x1="196" y1="120" x2="210" y2="120"/>
+            </g>
+            <circle cx="120" cy="120" r="62" fill="#060E18"/>
+            <rect x="208" y="112" width="14" height="16" rx="2.5" fill="#1A1614" stroke="#B8955A" stroke-width="1"/>
+            <text x="120" y="108" text-anchor="middle" fill="rgba(184,149,90,0.7)" font-size="6" font-family="Josefin Sans, sans-serif" letter-spacing="2">GENTRY</text>
+            <text x="120" y="120" text-anchor="middle" fill="rgba(100,160,220,0.5)" font-size="4" font-family="Josefin Sans, sans-serif" letter-spacing="1.5">AQUA 300</text>
+            <text x="120" y="132" text-anchor="middle" fill="rgba(100,160,220,0.35)" font-size="3.5" font-family="Josefin Sans, sans-serif" letter-spacing="1">300M / 1000FT</text>
+            <line x1="120" y1="120" x2="120" y2="62" stroke="#E8F4FF" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="120" y1="120" x2="162" y2="120" stroke="#E8F4FF" stroke-width="2" stroke-linecap="round"/>
+            <line x1="120" y1="120" x2="110" y2="155" stroke="#B8955A" stroke-width="1" stroke-linecap="round"/>
+            <circle cx="120" cy="120" r="3.5" fill="#B8955A"/>
+          </svg>
+        </div>
+        <div class="card-info">
+          <div>
+            <div class="card-collection">Aqua Gentry</div>
+            <div class="card-name">Bathyal 300</div>
+            <div class="card-ref">Ref. GEN-AQ-004</div>
+          </div>
+          <div class="card-price">
+            <div class="price-label">From</div>
+            <div class="price-val">$18,400</div>
+          </div>
+        </div>
+        <div class="card-overlay">
+          <button class="overlay-btn" onclick="event.stopPropagation(); openModal(3)">View Details</button>
+          <button class="overlay-btn secondary">Add to Wishlist</button>
+        </div>
+      </div>
+
+      <!-- Watch 5 -->
+      <div class="watch-card" data-collection="meridian" onclick="openModal(4)">
+        <div class="card-img">
+          <svg class="card-svg" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="120" cy="120" r="96" fill="none" stroke="#B8955A" stroke-width="4" opacity="0.5"/>
+            <circle cx="120" cy="120" r="90" fill="#0E0C0B"/>
+            <circle cx="120" cy="120" r="76" fill="#161410"/>
+            <circle cx="120" cy="120" r="76" fill="url(#silver)" opacity="0.3"/>
+            <rect x="208" y="112" width="14" height="16" rx="2.5" fill="#1A1614" stroke="#B8955A" stroke-width="1"/>
+            <circle cx="120" cy="120" r="60" fill="none" stroke="rgba(184,149,90,0.06)" stroke-width="20"/>
+            <circle cx="120" cy="120" r="40" fill="none" stroke="rgba(184,149,90,0.06)" stroke-width="20"/>
+            <g stroke="#B8955A" stroke-width="2.5">
+              <line x1="120" y1="34" x2="120" y2="50"/>
+              <line x1="120" y1="190" x2="120" y2="206"/>
+              <line x1="34" y1="120" x2="50" y2="120"/>
+              <line x1="190" y1="120" x2="206" y2="120"/>
+            </g>
+            <g stroke="rgba(184,149,90,0.4)" stroke-width="1.5">
+              <line x1="173" y1="47" x2="167" y2="57"/>
+              <line x1="193" y1="67" x2="183" y2="73"/>
+              <line x1="193" y1="173" x2="183" y2="167"/>
+              <line x1="173" y1="193" x2="167" y2="183"/>
+              <line x1="67" y1="193" x2="73" y2="183"/>
+              <line x1="47" y1="173" x2="57" y2="167"/>
+              <line x1="47" y1="67" x2="57" y2="73"/>
+              <line x1="67" y1="47" x2="73" y2="57"/>
+            </g>
+            <circle cx="120" cy="155" r="16" fill="#1A1614" stroke="rgba(184,149,90,0.3)" stroke-width="0.5"/>
+            <circle cx="124" cy="155" r="13" fill="#0A0806"/>
+            <text x="120" y="106" text-anchor="middle" fill="rgba(184,149,90,0.65)" font-size="6" font-family="Josefin Sans, sans-serif" letter-spacing="2.5">GENTRY</text>
+            <line x1="120" y1="120" x2="120" y2="58" stroke="#F5F0E8" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="120" y1="120" x2="160" y2="120" stroke="#F5F0E8" stroke-width="2" stroke-linecap="round"/>
+            <line x1="120" y1="120" x2="110" y2="152" stroke="#B8955A" stroke-width="1" stroke-linecap="round"/>
+            <circle cx="120" cy="120" r="3.5" fill="#B8955A"/>
+          </svg>
+        </div>
+        <div class="card-info">
+          <div>
+            <div class="card-collection">Meridian</div>
+            <div class="card-name">Lunaire Perpetuel</div>
+            <div class="card-ref">Ref. GEN-MT-005</div>
+          </div>
+          <div class="card-price">
+            <div class="price-label">From</div>
+            <div class="price-val">$34,200</div>
+          </div>
+        </div>
+        <div class="card-overlay">
+          <button class="overlay-btn" onclick="event.stopPropagation(); openModal(4)">View Details</button>
+          <button class="overlay-btn secondary">Add to Wishlist</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED BAND -->
+<div class="feature-band fade-up">
+  <div class="feature-left">
+    <svg viewBox="0 0 280 280" style="width:320px;height:320px;filter:drop-shadow(0 0 60px rgba(184,149,90,0.15))">
+      <circle cx="140" cy="140" r="112" fill="none" stroke="#B8955A" stroke-width="5" opacity="0.4"/>
+      <circle cx="140" cy="140" r="105" fill="#0A0806" stroke="#4A3520" stroke-width="1"/>
+      <circle cx="140" cy="140" r="90" fill="#060402"/>
+      <rect x="246" y="132" width="16" height="18" rx="3" fill="#1A1614" stroke="#B8955A" stroke-width="1"/>
+      <circle cx="140" cy="140" r="65" fill="none" stroke="rgba(184,149,90,0.1)" stroke-width="30"/>
+      <g stroke="#B8955A" stroke-width="2">
+        <line x1="140" y1="35" x2="140" y2="52"/>
+        <line x1="140" y1="228" x2="140" y2="245"/>
+        <line x1="35" y1="140" x2="52" y2="140"/>
+        <line x1="228" y1="140" x2="245" y2="140"/>
+      </g>
+      <text x="140" y="126" text-anchor="middle" fill="rgba(184,149,90,0.75)" font-size="7" font-family="Josefin Sans, sans-serif" letter-spacing="3">GENTRY</text>
+      <text x="140" y="156" text-anchor="middle" fill="rgba(184,149,90,0.3)" font-size="4.5" font-family="Josefin Sans, sans-serif" letter-spacing="1.5">SOVEREIGN</text>
+      <line x1="140" y1="140" x2="140" y2="62" stroke="#F5F0E8" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="140" y1="140" x2="182" y2="140" stroke="#F5F0E8" stroke-width="2" stroke-linecap="round"/>
+      <line x1="140" y1="140" x2="128" y2="175" stroke="#B8955A" stroke-width="1.2" stroke-linecap="round"/>
+      <circle cx="140" cy="140" r="5" fill="#B8955A"/>
+      <circle cx="140" cy="140" r="2" fill="#060402"/>
+    </svg>
+  </div>
+  <div class="feature-right">
+    <div class="feature-tag">Limited Edition — 2026</div>
+    <h2 class="feature-title">The Sovereign<br>Skeleton</h2>
+    <p class="feature-desc">
+      Only 18 pieces will ever exist. The Sovereign Skeleton exposes the full architecture of our in-house Calibre GEN-8000, its bridges hand-chamfered and polished over fourteen weeks. A watch that demands to be seen — and understood.
+    </p>
+    <a class="feature-link" onclick="openModal(5)">Enquire for Availability</a>
+  </div>
+</div>
+
+<!-- SPECS STRIP -->
+<div class="specs-strip fade-up">
+  <div class="spec-item">
+    <div class="spec-num">72<span class="spec-unit">h</span></div>
+    <div class="spec-label">Power Reserve</div>
+  </div>
+  <div class="spec-item">
+    <div class="spec-num">36<span class="spec-unit">k</span></div>
+    <div class="spec-label">Vph Beat Rate</div>
+  </div>
+  <div class="spec-item">
+    <div class="spec-num">18<span class="spec-unit">kt</span></div>
+    <div class="spec-label">Gold Cases</div>
+  </div>
+  <div class="spec-item">
+    <div class="spec-num">300<span class="spec-unit">m</span></div>
+    <div class="spec-label">Water Resistance</div>
+  </div>
+</div>
+
+<!-- MOVEMENT SECTION -->
+<section id="movement" class="movement">
+  <div class="movement-text fade-up">
+    <div class="movement-eyebrow">The Engine Within</div>
+    <h2 class="movement-title">Calibre<br><em>GEN-8000</em></h2>
+    <p class="movement-body">
+      Conceived entirely within the Gentry Manufacture in Le Brassus, the Calibre GEN-8000 represents a decade of refinement. Every component is produced, decorated, assembled, and regulated in-house — a purely vertical creation that owes nothing to outsourced parts or compromise.
+    </p>
+    <div class="movement-details">
+      <div class="detail-row">
+        <div class="detail-key">Movement Type</div>
+        <div class="detail-val">Automatic</div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-key">Frequency</div>
+        <div class="detail-val">4 Hz / 28,800 vph</div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-key">Components</div>
+        <div class="detail-val">412 Parts</div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-key">Jewels</div>
+        <div class="detail-val">38 Rubies</div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-key">Power Reserve</div>
+        <div class="detail-val">72 Hours</div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-key">Precision</div>
+        <div class="detail-val">±2 sec/day</div>
+      </div>
     </div>
   </div>
 
-  <div id="footer-placeholder"></div>
+  <div class="movement-visual">
+    <svg viewBox="0 0 340 340" style="width:100%;max-width:400px;filter:drop-shadow(0 0 80px rgba(184,149,90,0.12))">
+      <circle cx="170" cy="170" r="140" fill="#0C0A08" stroke="rgba(184,149,90,0.15)" stroke-width="1"/>
+      <path d="M 80 120 Q 120 80 170 90 Q 220 80 260 120 Q 280 150 270 185 Q 260 220 230 240 Q 200 260 170 258 Q 140 260 110 240 Q 80 220 70 185 Q 60 150 80 120 Z" fill="none" stroke="rgba(184,149,90,0.2)" stroke-width="1.5"/>
+      <circle cx="170" cy="170" r="55" fill="none" stroke="rgba(184,149,90,0.12)" stroke-width="22"/>
+      <circle cx="170" cy="170" r="42" fill="none" stroke="rgba(184,149,90,0.08)" stroke-width="8"/>
+      <circle cx="170" cy="170" r="30" fill="none" stroke="rgba(184,149,90,0.2)" stroke-width="4"/>
+      <circle cx="100" cy="108" r="22" fill="none" stroke="rgba(184,149,90,0.18)" stroke-width="3"/>
+      <circle cx="100" cy="108" r="14" fill="none" stroke="rgba(184,149,90,0.1)" stroke-width="6"/>
+      <circle cx="240" cy="108" r="22" fill="none" stroke="rgba(184,149,90,0.18)" stroke-width="3"/>
+      <circle cx="240" cy="108" r="14" fill="none" stroke="rgba(184,149,90,0.1)" stroke-width="6"/>
+      <circle cx="240" cy="232" r="18" fill="none" stroke="rgba(184,149,90,0.18)" stroke-width="3"/>
+      <circle cx="100" cy="232" r="18" fill="none" stroke="rgba(184,149,90,0.18)" stroke-width="3"/>
+      <circle cx="170" cy="170" r="18" fill="none" stroke="rgba(184,149,90,0.5)" stroke-width="0.75"/>
+      <circle cx="170" cy="170" r="12" fill="none" stroke="rgba(184,149,90,0.4)" stroke-width="0.75"/>
+      <circle cx="170" cy="170" r="7" fill="none" stroke="rgba(184,149,90,0.35)" stroke-width="0.75"/>
+      <g stroke="rgba(184,149,90,0.5)" stroke-width="0.75">
+        <line x1="170" y1="148" x2="170" y2="154"/>
+        <line x1="170" y1="186" x2="170" y2="192"/>
+        <line x1="148" y1="170" x2="154" y2="170"/>
+        <line x1="186" y1="170" x2="192" y2="170"/>
+      </g>
+      <g fill="rgba(184,149,90,0.4)">
+        <circle cx="120" cy="128" r="2.5"/>
+        <circle cx="220" cy="128" r="2.5"/>
+        <circle cx="120" cy="212" r="2.5"/>
+        <circle cx="220" cy="212" r="2.5"/>
+        <circle cx="170" cy="100" r="2.5"/>
+        <circle cx="170" cy="240" r="2.5"/>
+      </g>
+      <circle cx="170" cy="170" r="4" fill="#B8955A"/>
+      <circle cx="170" cy="170" r="2" fill="#0C0A08"/>
+      <text x="170" y="82" text-anchor="middle" fill="rgba(184,149,90,0.3)" font-size="5" font-family="Josefin Sans, sans-serif" letter-spacing="3">CALIBRE GEN-8000</text>
+    </svg>
+  </div>
+</section>
 
-  <script>
-    /**
-     * Book Viewing Modal Functionality
-     */
-    const modal = document.getElementById('bookViewingModal');
-    const bookViewingBtns = document.querySelectorAll('.book-viewing-btn');
-    const closeBtn = document.querySelector('.close-modal');
-    const bookingForm = document.getElementById('booking-form');
+<div id="footer-placeholder"></div>
 
-    // Open modal when "Book Viewing" button is clicked
-    bookViewingBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const watchName = btn.getAttribute('data-watch');
-        document.getElementById('selected-watch').textContent = watchName;
-        modal.style.display = 'block';
-      });
-    });
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-img" id="modalImg"></div>
+    <div class="modal-info" id="modalInfo"></div>
+  </div>
+</div>
 
-    // Close modal when X is clicked
-    closeBtn.addEventListener('click', () => {
-      modal.style.display = 'none';
-    });
+<script>
+const watches = [
+  {
+    collection: "Meridian",
+    name: "Céleste Tourbillon",
+    ref: "Ref. GEN-MT-001",
+    price: "$48,500",
+    desc: "The Céleste Tourbillon is Gentry's crowning achievement in anti-gravity horological engineering. A one-minute flying tourbillon floats beneath the sapphire crystal, its cage hand-assembled from 72 titanium components over the course of three days.",
+    specs: [
+      { k: "Case Material", v: "18kt Rose Gold" },
+      { k: "Diameter", v: "42mm" },
+      { k: "Movement", v: "Cal. GEN-8000-T" },
+      { k: "Power Reserve", v: "80 Hours" },
+      { k: "Water Resistance", v: "30m" },
+      { k: "Strap", v: "Alligator, handstitched" },
+    ],
+    svgColor: "#B8955A",
+    dialColor: "#0F1932"
+  },
+  {
+    collection: "Eclipse",
+    name: "Nocturne",
+    ref: "Ref. GEN-EC-002",
+    price: "$22,900",
+    desc: "Born from darkness, perfected in light. The Nocturne's onyx-black dial absorbs every photon, while its polished gold indices emerge as if illuminated from within. A watch that becomes more captivating the closer you look.",
+    specs: [
+      { k: "Case Material", v: "Stainless Steel" },
+      { k: "Diameter", v: "40mm" },
+      { k: "Movement", v: "Cal. GEN-4200" },
+      { k: "Power Reserve", v: "72 Hours" },
+      { k: "Water Resistance", v: "50m" },
+      { k: "Strap", v: "Black calf, double-fold" },
+    ],
+    svgColor: "#8B6E3A",
+    dialColor: "#080605"
+  },
+  {
+    collection: "Sovereign",
+    name: "Grand Complication",
+    ref: "Ref. GEN-SO-003",
+    price: "$68,000",
+    desc: "Seven complications, one breathtaking timepiece. The Grand Complication unites a perpetual calendar, minute repeater, and split-second chronograph within a cushion-shaped 18kt white gold case that rewards every glance with new discovery.",
+    specs: [
+      { k: "Case Material", v: "18kt White Gold" },
+      { k: "Dimensions", v: "44 × 44mm" },
+      { k: "Movement", v: "Cal. GEN-9500-GC" },
+      { k: "Power Reserve", v: "60 Hours" },
+      { k: "Complications", v: "7 functions" },
+      { k: "Strap", v: "Cordovan leather" },
+    ],
+    svgColor: "#B8955A",
+    dialColor: "#0E0C0B"
+  },
+  {
+    collection: "Aqua Gentry",
+    name: "Bathyal 300",
+    ref: "Ref. GEN-AQ-004",
+    price: "$18,400",
+    desc: "Engineered for the deep. The Bathyal 300 is rated to 300 metres and built with a unidirectional rotating bezel in black ceramic, luminous hands in Grade A SuperLuminova, and a helium escape valve — tools of precision for those who explore the abyss.",
+    specs: [
+      { k: "Case Material", v: "Grade 5 Titanium" },
+      { k: "Diameter", v: "44mm" },
+      { k: "Movement", v: "Cal. GEN-4500-D" },
+      { k: "Water Resistance", v: "300m / 1000ft" },
+      { k: "Bezel", v: "Black ceramic" },
+      { k: "Bracelet", v: "Titanium, 3-link" },
+    ],
+    svgColor: "#2A4A6B",
+    dialColor: "#060E18"
+  },
+  {
+    collection: "Meridian",
+    name: "Lunaire Perpetuel",
+    ref: "Ref. GEN-MT-005",
+    price: "$34,200",
+    desc: "The Lunaire Perpetuel marries the precision of a perpetual calendar with the poetry of a moon phase display accurate to one day in 122 years. Its silver guilloché dial is engine-turned by hand, then lacquered in a process unchanged since 1923.",
+    specs: [
+      { k: "Case Material", v: "Platinum 950" },
+      { k: "Diameter", v: "41mm" },
+      { k: "Movement", v: "Cal. GEN-7000-PC" },
+      { k: "Moon Phase Accuracy", v: "1 day / 122 years" },
+      { k: "Dial", v: "Silver guilloché" },
+      { k: "Strap", v: "Midnight blue alligator" },
+    ],
+    svgColor: "#B8955A",
+    dialColor: "#161410"
+  },
+  {
+    collection: "Sovereign — Limited",
+    name: "Skeleton",
+    ref: "Ref. GEN-SO-SK18",
+    price: "Upon Request",
+    desc: "Only 18 examples of the Sovereign Skeleton will ever be produced. Each takes 14 weeks to hand-finish; the main plate and bridges are skeletonised, bevelled, and polished by a single artisan who signs the caseback. Delivered with a certificate of authenticity and a private collector's book.",
+    specs: [
+      { k: "Case Material", v: "18kt Yellow Gold" },
+      { k: "Diameter", v: "43mm" },
+      { k: "Movement", v: "Cal. GEN-8000-SK" },
+      { k: "Production", v: "18 pieces total" },
+      { k: "Finishing", v: "14 weeks by hand" },
+      { k: "Delivery", v: "12–18 months" },
+    ],
+    svgColor: "#B8955A",
+    dialColor: "#0A0806"
+  }
+];
 
-    // Close modal when clicking outside of it
-    window.addEventListener('click', (event) => {
-      if (event.target === modal) {
-        modal.style.display = 'none';
-      }
-    });
+function openModal(index) {
+  const w = watches[index];
+  const overlay = document.getElementById('modalOverlay');
+  
+  document.getElementById('modalImg').innerHTML = `
+    <svg viewBox="0 0 280 280" style="width:260px;height:260px;filter:drop-shadow(0 8px 40px rgba(0,0,0,0.7))">
+      <circle cx="140" cy="140" r="112" fill="none" stroke="${w.svgColor}" stroke-width="5" opacity="0.6"/>
+      <circle cx="140" cy="140" r="105" fill="${w.dialColor}" stroke="#4A3520" stroke-width="1"/>
+      <circle cx="140" cy="140" r="90" fill="${w.dialColor}"/>
+      <rect x="246" y="132" width="14" height="16" rx="2.5" fill="#1A1614" stroke="${w.svgColor}" stroke-width="1"/>
+      <g stroke="${w.svgColor}" stroke-width="2.5">
+        <line x1="140" y1="35" x2="140" y2="52"/>
+        <line x1="140" y1="228" x2="140" y2="245"/>
+        <line x1="35" y1="140" x2="52" y2="140"/>
+        <line x1="228" y1="140" x2="245" y2="140"/>
+      </g>
+      <text x="140" y="126" text-anchor="middle" fill="rgba(184,149,90,0.75)" font-size="7" font-family="Josefin Sans, sans-serif" letter-spacing="3">GENTRY</text>
+      <line x1="140" y1="140" x2="140" y2="62" stroke="#F5F0E8" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="140" y1="140" x2="182" y2="140" stroke="#F5F0E8" stroke-width="2" stroke-linecap="round"/>
+      <line x1="140" y1="140" x2="128" y2="173" stroke="${w.svgColor}" stroke-width="1.2" stroke-linecap="round"/>
+      <circle cx="140" cy="140" r="4" fill="${w.svgColor}"/>
+      <circle cx="140" cy="140" r="1.8" fill="${w.dialColor}"/>
+    </svg>
+  `;
 
-    // Handle form submission
-    bookingForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const name = document.getElementById('visitor-name').value;
-      const email = document.getElementById('visitor-email').value;
-      const phone = document.getElementById('visitor-phone').value;
-      const message = document.getElementById('visitor-message').value;
-      const watch = document.getElementById('selected-watch').textContent;
+  const specsHtml = w.specs.map(s => `
+    <div class="detail-row">
+      <div class="detail-key">${s.k}</div>
+      <div class="detail-val">${s.v}</div>
+    </div>
+  `).join('');
 
-      // Log booking data (in production, send to backend API)
-      console.log('Viewing booked:', { name, email, phone, watch, message });
+  document.getElementById('modalInfo').innerHTML = `
+    <div class="modal-col">${w.collection}</div>
+    <div class="modal-name">${w.name}</div>
+    <div class="modal-ref">${w.ref}</div>
+    <div class="modal-price">${w.price}</div>
+    <div class="modal-desc">${w.desc}</div>
+    <div class="modal-specs">${specsHtml}</div>
+    <button class="modal-buy" onclick="alert('Thank you for your interest in the ${w.name}. A Gentry specialist will contact you shortly.')">
+      ${w.price === 'Upon Request' ? 'Request Information' : 'Add to Cart'}
+    </button>
+  `;
 
-      alert('Thank you! We will contact you shortly to confirm your viewing.');
-      modal.style.display = 'none';
-      bookingForm.reset();
-    });
+  overlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
 
-    /**
-     * Close booking modal from outside
-     */
-    function closeBookingModal() {
-      modal.style.display = 'none';
-      bookingForm.reset();
+function closeModal(e) {
+  if (!e || e.target === document.getElementById('modalOverlay') || e.currentTarget.tagName === 'BUTTON') {
+    document.getElementById('modalOverlay').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+}
+
+function filterCards(collection, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.watch-card').forEach(card => {
+    if (collection === 'all' || card.dataset.collection === collection) {
+      card.style.display = '';
+    } else {
+      card.style.display = 'none';
     }
+  });
+}
 
-    /**
-     * Explore Collection button - scroll to products
-     */
-    document.getElementById('explore-btn').addEventListener('click', () => {
-      const productsSection = document.getElementById('products-section');
-      productsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
+// Scroll animations
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: 0.1 });
 
-    /**
-     * Load Featured Watches from API
-     */
-    async function loadFeaturedWatches() {
-      // Wait for API to initialize
-      await new Promise(resolve => setTimeout(resolve, 1500));
-
-      if (typeof watchAPI === 'undefined' || !watchAPI) {
-        console.error('Watch API not available');
-        return;
-      }
-
-      const featuredWatches = ['rolex submariner', 'omega seamaster', 'patek philippe'];
-      const container = document.getElementById('watches-container');
-      
-      for (const watchName of featuredWatches) {
-        try {
-          const results = await watchAPI.searchWatches(watchName);
-          if (results && results.length > 0) {
-            const watch = results[0]; // Get first result
-            const card = createWatchCard(watch);
-            container.appendChild(card);
-          }
-        } catch (error) {
-          console.error(`Error loading ${watchName}:`, error);
-        }
-      }
-    }
-
-    /**
-     * Create watch card element
-     */
-    function createWatchCard(watch) {
-      const div = document.createElement('div');
-      div.className = 'card';
-      
-      // Generate image using WatchImageGenerator
-      const imageDataUrl = typeof WatchImageGenerator !== 'undefined' 
-        ? WatchImageGenerator.getWatchImageDataURL(watch.brand, watch.model)
-        : 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iIzExMSIvPjwvc3ZnPg==';
-
-      div.innerHTML = `
-        <img src="${imageDataUrl}" alt="${watch.model}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px;">
-        <h3>${watch.model || watch.brand}</h3>
-        <p style="color: #D4AF37; font-size: 12px; margin: 5px 0;">${watch.brand}</p>
-        <p style="color: #aaa; font-size: 12px; margin: 5px 0;">Ref: ${watch.reference_number || 'N/A'}</p>
-        <button class="book-viewing-btn" data-watch="${watch.model}">Book Viewing</button>
-      `;
-
-      return div;
-    }
-
-    // Load featured watches when page loads
-    document.addEventListener('DOMContentLoaded', () => {
-      loadFeaturedWatches();
-    });
-  </script>
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
-
